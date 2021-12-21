@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "unimath2IMEdic"
+version = "1.0.0"
+description = "A generator of a Microsoft Japanese IME dictionary based on unicode-math (LaTeX) commands"
+authors = ["Nori Hayashi <net@hayashi-lin.net>"]
+keywords = ["IME", "dictionary", "Japanese", "mathemathics"]
+
+[tool.poetry.scripts]
+unimath2imedic = "unimath2imedic.cli:app"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+requests-cache = "^0.8.1"
+typer = "^0.4.0"
+jaconv = "^0.3"
+
+[tool.poetry.dev-dependencies]
+pytest = "^6.2.5"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
