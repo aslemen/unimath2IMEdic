@@ -5,6 +5,9 @@ import unimath2imedic.roman2kana as r2k
 items_MSIME: tuple[tuple[str, str], ...] = (
     ("doubleplus", "どうｂぇｐぅｓ"),
     ("minusdot", "みぬｓどｔ"),
+    ("mitsansf", "みつぁんｓｆ"),
+    ("errbardiamond", "えｒｒばｒぢあもんｄ"),
+    ("eqqslantless", "えｑｑｓぁんｔぇｓｓ"),
 )
 
 @pytest.mark.parametrize(
