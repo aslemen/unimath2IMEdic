@@ -1,27 +1,31 @@
+import functools
 import importlib.resources
 import csv
 from enum import IntEnum
 
 import jaconv
 
-# https://support.microsoft.com/ja-jp/topic/%E3%83%AD%E3%83%BC%E3%83%9E%E5%AD%97%E5%85%A5%E5%8A%9B%E3%81%AE%E3%81%A4%E3%81%A5%E3%82%8A%E4%B8%80%E8%A6%A7%E8%A1%A8%E3%82%92%E7%A2%BA%E8%AA%8D%E3%81%97%E3%81%A6%E3%81%BF%E3%82%88%E3%81%86-bcc0ad7e-2781-cc9a-e524-7de506d8fdae
-_DICT_MSIME: dict[str, str] | None = None
-"""
-A dictionary which maps a roman letter string to the corresponding hiragana.
-"""
-
-def _get_DICT_MSIME():
+@functools.cache
+def get_DICT_MSIME():
     """
     Initialize `_DICT_MSIME` from the resources.
-    """
-    global _DICT_MSIME
 
-    if not _DICT_MSIME:
-        with importlib.resources.open_text("unimath2imedic", "table_MSIME.csv") as f_table:
-            r = csv.reader(f_table)
-            _DICT_MSIME = dict(r)
-    
-    return _DICT_MSIME
+    Returns
+    -------
+    DICT_MSIME
+        The MS IME dict mapping roman inputs to hiraganas.
+
+    Notes
+    -----
+    The mapping is given in [1].
+
+    References
+    ----------
+    [1] https://support.microsoft.com/ja-jp/topic/%E3%83%AD%E3%83%BC%E3%83%9E%E5%AD%97%E5%85%A5%E5%8A%9B%E3%81%AE%E3%81%A4%E3%81%A5%E3%82%8A%E4%B8%80%E8%A6%A7%E8%A1%A8%E3%82%92%E7%A2%BA%E8%AA%8D%E3%81%97%E3%81%A6%E3%81%BF%E3%82%88%E3%81%86-bcc0ad7e-2781-cc9a-e524-7de506d8fdae
+    """
+    with importlib.resources.open_text("unimath2imedic", "table_MSIME.csv") as f_table:
+        r = csv.reader(f_table)
+        return dict(r)
 
 class _STATUS(IntEnum):
     FAILED = 0
@@ -29,9 +33,7 @@ class _STATUS(IntEnum):
     ALL_CONV = 3
 
 # https://cylomw.hatenablog.com/entry/2016/12/06/131418
-def roman2kana_msime(roman: str) -> str:
-    dict_MSIME = _get_DICT_MSIME()
-
+def roman2kana_MSIME(roman: str) -> str:
     len_roman = len(roman)
     window_begin = 0
     window_end = 1
@@ -51,7 +53,7 @@ def roman2kana_msime(roman: str) -> str:
             window_split_former_init = window_split_former[:-1]
             window_split_former_last = window_split_former[-1:]
 
-            if window_split_latter_kana := dict_MSIME.get(window_split_latter, None):
+            if window_split_latter_kana := get_DICT_MSIME().get(window_split_latter, None):
                 # try to detect double consonant
                 if (
                     window_split_former_last # non-empty

@@ -14,5 +14,5 @@ items_MSIME: tuple[tuple[str, str], ...] = (
     "input, output",
     items_MSIME,
 )
-def test_roman2kana_msime(input: str, output: str):
-    assert r2k.roman2kana_msime(input) == output
+def test_roman2kana_MSIME(input: str, output: str):
+    assert r2k.roman2kana_MSIME(input) == output
