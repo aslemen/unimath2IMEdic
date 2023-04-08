@@ -20,7 +20,6 @@ def roman2kana_msime(roman: str) -> str:
         with importlib.resources.open_text("unimath2imedic", "table_MSIME.csv") as f_table:
             r = csv.reader(f_table)
             _DICT_MSIME = dict(r)
-            import sys
 
     len_roman = len(roman)
     window_begin = 0

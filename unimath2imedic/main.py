@@ -1,5 +1,4 @@
 import codecs
-from os import pardir
 import re
 import typing
 from requests_cache.session import CachedSession
