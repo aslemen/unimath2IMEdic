@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "unimath2IMEdic"
-version = "1.0.0"
+version = "1.1.0"
 description = "A generator of a Microsoft Japanese IME dictionary based on unicode-math (LaTeX) commands"
 authors = ["Nori Hayashi <net@hayashi-lin.net>"]
 keywords = ["IME", "dictionary", "Japanese", "mathemathics"]
